@@ -48,6 +48,7 @@ namespace DataLayer
        //3. Đọc dữ liệu trả về 1 giá trị duy nhất (object)
        //4. Thực thi các thử tục (thêm, sửa, xóa) ExcuteNonQuery
        //5. Đọc dữ liệu trả về cấu trức XML Document
+       //Thêm du liệu khi cân
         #endregion
     }
 }
