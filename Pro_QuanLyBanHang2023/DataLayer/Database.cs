@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -58,6 +58,7 @@ namespace DataLayer
        }
         #region Các phương thức thác tác dữ liệu
        //1. Đọc dữ liệu theo dạng DataReader
+
        public SqlDataReader ReadDataBySqlDataReader(ref string err,string commandText,CommandType commandType,params SqlParameter[] param)
         {
             SqlDataReader sqlDataReader = null;
@@ -251,6 +252,7 @@ namespace DataLayer
                 cnn.Close();
             }
         }
+
         #endregion
     }
 }
