@@ -45,11 +45,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLayer\BLL_Connections.cs" />
+    <Compile Include="BusinessLayer\BLL_DangNhap.cs" />
+    <Compile Include="BusinessLayer\BLL_SanPham.cs" />
     <Compile Include="Frm_DangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Frm_DangNhap.Designer.cs">
       <DependentUpon>Frm_DangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_DonViTinh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_DonViTinh.Designer.cs">
+      <DependentUpon>Frm_DonViTinh.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm_KetNoi.cs">
       <SubType>Form</SubType>
@@ -63,6 +71,12 @@
     <Compile Include="Frm_Main.Designer.cs">
       <DependentUpon>Frm_Main.cs</DependentUpon>
     </Compile>
+    <Compile Include="Frm_SanPham.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_SanPham.Designer.cs">
+      <DependentUpon>Frm_SanPham.cs</DependentUpon>
+    </Compile>
     <Compile Include="Frm_SaoLuuVaPhucHoi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -71,6 +85,21 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Frm_DangNhap.resx">
+      <DependentUpon>Frm_DangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_DonViTinh.resx">
+      <DependentUpon>Frm_DonViTinh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_KetNoi.resx">
+      <DependentUpon>Frm_KetNoi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_Main.resx">
+      <DependentUpon>Frm_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_SanPham.resx">
+      <DependentUpon>Frm_SanPham.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

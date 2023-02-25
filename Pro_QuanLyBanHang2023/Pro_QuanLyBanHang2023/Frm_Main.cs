@@ -16,5 +16,18 @@ namespace Pro_QuanLyBanHang2023
         {
             InitializeComponent();
         }
+
+        private void Frm_Main_Load(object sender, EventArgs e)
+        {
+            Frm_DangNhap frm_DangNhap = new Frm_DangNhap();
+            frm_DangNhap.ShowDialog();
+        }
+
+        private void mnuSanPham_Click(object sender, EventArgs e)
+        {
+            Frm_SanPham frm_SanPham = new Frm_SanPham();
+            frm_SanPham.StartPosition = FormStartPosition.CenterScreen;
+            frm_SanPham.ShowDialog();
+        }
     }
 }
