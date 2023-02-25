@@ -18,7 +18,7 @@ namespace DataLayer
        MyConnection myConnection;
        public Database()
        {
-           myConnection=new MyConnection("MINHPHUC\\MSSQL2019","AdventureWorks2019","","",true);
+           myConnection=new MyConnection("MINHPHUC\\MSSQL2019", "Data_BanHang_HocTap", "sa","infor210385",false);
            cnn = new SqlConnection() { ConnectionString = myConnection.GetConnectionString() };
        }
         /// <summary>
