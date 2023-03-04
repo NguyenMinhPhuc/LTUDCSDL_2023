@@ -47,6 +47,7 @@
     <Compile Include="BusinessLayer\BLL_Connections.cs" />
     <Compile Include="BusinessLayer\BLL_DangNhap.cs" />
     <Compile Include="BusinessLayer\BLL_SanPham.cs" />
+    <Compile Include="DTO\SanPham.cs" />
     <Compile Include="Frm_DangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
