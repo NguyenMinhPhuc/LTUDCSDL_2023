@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Pro_QuanLyBanHang2023
 {
@@ -122,15 +123,22 @@ namespace Pro_QuanLyBanHang2023
                 sanPham.SoTon = Convert.ToInt32(dgvDanhSachSanPham.CurrentRow.Cells["colSoTon"].Value.ToString());
                 sanPham.MaDVT = Convert.ToInt32(dgvDanhSachSanPham.CurrentRow.Cells["colMaDVT"].Value.ToString());
             }
-            BingSanPhamToControl();
+            BingSanPhamToControl(sanPham);
         }
 
-        private void BingSanPhamToControl()
+        private void BingSanPhamToControl(SanPham sanPham)
         {
+            if (sanPham != null) { 
             txtMaSP.Text = sanPham.MaSP;
             txtTenSP.Text = sanPham.TenSP;
             txtSoTon.Text = sanPham.SoTon.ToString();
             cboDonViTinh.SelectedValue = sanPham.MaDVT;
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -29,5 +29,12 @@ namespace Pro_QuanLyBanHang2023
             frm_SanPham.StartPosition = FormStartPosition.CenterScreen;
             frm_SanPham.ShowDialog();
         }
+
+        private void mnuLoaiChucNang_Click(object sender, EventArgs e)
+        {
+            Frm_LoaiChucNang frm_LoaiChucNang = new Frm_LoaiChucNang();
+            frm_LoaiChucNang.StartPosition = FormStartPosition.CenterScreen;
+            frm_LoaiChucNang.Show();
+        }
     }
 }

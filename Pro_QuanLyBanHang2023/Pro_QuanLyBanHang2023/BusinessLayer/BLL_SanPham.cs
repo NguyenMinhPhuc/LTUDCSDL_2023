@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Pro_QuanLyBanHang2023.BusinessLayer
 {
@@ -50,5 +51,7 @@ namespace Pro_QuanLyBanHang2023.BusinessLayer
                 new SqlParameter("@SoTon", sanPham.SoTon),
                 new SqlParameter("@MaDVT", sanPham.MaDVT));
         }
+
+        
     }
 }

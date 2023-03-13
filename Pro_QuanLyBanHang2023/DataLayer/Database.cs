@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Xml;
+using System.Web;
+using Newtonsoft.Json;
 
 namespace DataLayer
 {
@@ -173,45 +175,7 @@ namespace DataLayer
                 cnn.Close();
             }
         }
-        //5. Đọc dữ liệu trả về cấu trức XML Document
-        public XmlReader MyExcuteXmlReader(ref string err, string commandText, CommandType commandType, params SqlParameter[] sqlParameters)
-        {
-            try
-            {
-                //B1. Mở kết nối
-                if (cnn.State == ConnectionState.Open)
-                    cnn.Close();
-                cnn.Open();
-                //B2. Khởi tạo SqlCommand
-                cmd = new SqlCommand()
-                {
-                    Connection = cnn,
-                    CommandText = commandText,
-                    CommandType = commandType,
-                    CommandTimeout = 3600
-                };
-                //B3. Thêm tham số cho SqlCommand
-                if (sqlParameters != null)
-                {
-                    foreach (SqlParameter item in sqlParameters)
-                    {
-                        cmd.Parameters.Add(item);
-                    }
-                }
-                //B4. Thực thi phương thức của Command
-                return cmd.ExecuteXmlReader();
-               
-            }
-            catch (Exception ex)
-            {
-                err = ex.Message;
-                return null;
-            }
-            finally
-            {
-                cnn.Close();
-            }
-        }
+        
         //6 trả về datatable
         public DataTable GetDataTable(ref string err, string commandText, CommandType commandType, params SqlParameter[] sqlParameters)
         {
@@ -344,5 +308,6 @@ namespace DataLayer
             return result;
         }
 
+     
     }
 }

@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,7 +49,9 @@
   <ItemGroup>
     <Compile Include="BusinessLayer\BLL_Connections.cs" />
     <Compile Include="BusinessLayer\BLL_DangNhap.cs" />
+    <Compile Include="BusinessLayer\BLL_LoaiChucNang.cs" />
     <Compile Include="BusinessLayer\BLL_SanPham.cs" />
+    <Compile Include="DTO\LoaiChucNang.cs" />
     <Compile Include="DTO\SanPham.cs" />
     <Compile Include="Frm_DangNhap.cs">
       <SubType>Form</SubType>
@@ -65,6 +70,24 @@
     </Compile>
     <Compile Include="Frm_KetNoi.Designer.cs">
       <DependentUpon>Frm_KetNoi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_LoaiChucNang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_LoaiChucNang.Designer.cs">
+      <DependentUpon>Frm_LoaiChucNang.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_LoaiChucNang_Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_LoaiChucNang_Main.Designer.cs">
+      <DependentUpon>Frm_LoaiChucNang_Main.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frm_LoaiChucNang_Modifies.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frm_LoaiChucNang_Modifies.Designer.cs">
+      <DependentUpon>Frm_LoaiChucNang_Modifies.cs</DependentUpon>
     </Compile>
     <Compile Include="Frm_Main.cs">
       <SubType>Form</SubType>
@@ -95,6 +118,15 @@
     <EmbeddedResource Include="Frm_KetNoi.resx">
       <DependentUpon>Frm_KetNoi.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Frm_LoaiChucNang.resx">
+      <DependentUpon>Frm_LoaiChucNang.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_LoaiChucNang_Main.resx">
+      <DependentUpon>Frm_LoaiChucNang_Main.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frm_LoaiChucNang_Modifies.resx">
+      <DependentUpon>Frm_LoaiChucNang_Modifies.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Frm_Main.resx">
       <DependentUpon>Frm_Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -110,6 +142,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
