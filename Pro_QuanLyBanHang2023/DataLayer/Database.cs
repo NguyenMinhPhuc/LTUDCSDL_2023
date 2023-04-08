@@ -18,8 +18,9 @@ namespace DataLayer
        MyConnection myConnection;
        public Database()
        {
-           myConnection=new MyConnection("MINHPHUC\\MSSQL2019","AdventureWorks2019","","",true);
+           myConnection=new MyConnection("MINHPHUC\\MSSQL2019", "Data_BanHang_HocTap", "sa","infor210385",false);
            cnn = new SqlConnection() { ConnectionString = myConnection.GetConnectionString() };
+            
        }
         /// <summary>
         /// Phương thức kiểm tra kết nối
@@ -254,5 +255,94 @@ namespace DataLayer
         }
 
         #endregion
+        /// <summary>
+        /// Thực hiện Select Command trả về một dataTable
+        /// </summary>
+        /// <param name="err">Biếu lưu lỗi</param>
+        /// <param name="commandText">Tên Store Procedure trong sql</param>
+        /// <param name="commandType">Kiểu command 'Nên dùng là Store procedure'</param>
+        /// <param name="sqlParameters">Danh sách tham số</param>
+        /// <returns>DataTable: dữ liệu nhận về</returns>
+        public DataTable LayDuLieuTheoDangBang(ref string err, string commandText,CommandType commandType,params SqlParameter[] sqlParameters)
+        {
+            DataTable dataTable = null;
+            try
+            {
+                //b1: Mo ket noi
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+                cnn.Open();
+                //b2: khoi tao doi tuong SqlCommand
+                cmd = new SqlCommand() {
+                    Connection = cnn,
+                    CommandText = commandText,
+                    CommandType = commandType,
+                    CommandTimeout = 3600
+                };
+                //b3:Them tham so cho SqlCommand
+                if (sqlParameters != null)
+                {
+                    foreach (SqlParameter item in sqlParameters)
+                    {
+                        cmd.Parameters.Add(item);
+                    } 
+                }
+                //b4:thuc thi command
+                 da = new SqlDataAdapter(cmd);
+                dataTable = new DataTable();
+                da.Fill(dataTable);
+
+            }
+            catch (Exception ex)
+            {
+                err = ex.Message;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dataTable;
+        }
+
+
+        public int MyExcuteNonQuery(ref string err, string commandText, CommandType commandType, params SqlParameter[] sqlParameters)
+        {
+            int result = 0;
+            try
+            {
+                //b1: Mo ket noi
+                if (cnn.State == ConnectionState.Open)
+                    cnn.Close();
+                cnn.Open();
+                //b2: khoi tao doi tuong SqlCommand
+                cmd = new SqlCommand()
+                {
+                    Connection = cnn,
+                    CommandText = commandText,
+                    CommandType = commandType,
+                    CommandTimeout = 3600
+                };
+                //b3:Them tham so cho SqlCommand
+                if (sqlParameters != null)
+                {
+                    foreach (SqlParameter item in sqlParameters)
+                    {
+                        cmd.Parameters.Add(item);
+                    }
+                }
+                //b4:thuc thi command
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                err = ex.Message;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return result;
+        }
+
     }
 }
