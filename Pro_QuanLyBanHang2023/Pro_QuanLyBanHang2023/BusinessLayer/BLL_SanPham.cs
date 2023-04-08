@@ -50,5 +50,10 @@ namespace Pro_QuanLyBanHang2023.BusinessLayer
                 new SqlParameter("@SoTon", sanPham.SoTon),
                 new SqlParameter("@MaDVT", sanPham.MaDVT));
         }
+
+        public DataTable LaySanPhamCbo(ref string err)
+        {
+            return database.GetDataTable(ref err, "PSP_SanPham_LaySanPham_Cbo", CommandType.StoredProcedure, null);
+        }
     }
 }

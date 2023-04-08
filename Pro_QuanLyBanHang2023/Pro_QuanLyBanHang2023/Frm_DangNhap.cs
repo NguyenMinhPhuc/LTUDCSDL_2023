@@ -26,6 +26,8 @@ namespace Pro_QuanLyBanHang2023
         private void Frm_DangNhap_Load(object sender, EventArgs e)
         {
             bd = new BLL_DangNhap();
+            txtTenDangNhap.Text = "admin";
+            txtMatKhau.Text = "123456";
         }
 
         private void btnDangNhap_Click(object sender, EventArgs e)
@@ -53,7 +55,7 @@ namespace Pro_QuanLyBanHang2023
                 MessageBox.Show("Chua co username");
             }
         }
-       
+        string maNhanVien = string.Empty;
         private bool KiemTraDangNhap(string tenDangNhap, string matKhau)
         {
             SqlDataReader sqlDataReader = bd.KiemTraDangNhap(ref err, tenDangNhap, matKhau);
@@ -61,7 +63,9 @@ namespace Pro_QuanLyBanHang2023
             {
                 trangThai =Convert.ToBoolean(sqlDataReader["TrangThai"]);
                 tenNhanVien = sqlDataReader["TenNhanVien"].ToString();
+                maNhanVien= sqlDataReader["MaNhanVien"].ToString();
             }
+            ClsMain.maNhanVien = maNhanVien;
             return trangThai;
         }
        
