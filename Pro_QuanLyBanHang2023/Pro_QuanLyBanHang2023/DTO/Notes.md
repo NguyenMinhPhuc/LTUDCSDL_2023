@@ -1,1 +1,1 @@
-﻿* ghi chú *
+﻿# ghi chú #

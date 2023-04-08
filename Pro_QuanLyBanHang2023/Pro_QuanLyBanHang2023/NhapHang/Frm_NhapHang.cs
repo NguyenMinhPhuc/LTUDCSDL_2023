@@ -17,10 +17,19 @@ namespace Pro_QuanLyBanHang2023.NhapHang
         {
             InitializeComponent();
         }
+
+        #region Khai báo biến toàn cục của Class Frm_NhapHang
         string maPhieuNhap = string.Empty;
         BLL_PhieuNhap bd;
 
         string err = string.Empty;
+        DataTable dtChiTietPhieuNhap;
+
+        int tongSoLuong = 0;
+        int tongThanhTien = 0;
+        #endregion
+
+        #region Các sự kiện trong form Frm_NhapHang
         private void Frm_NhapHang_Load(object sender, EventArgs e)
         {
             bd = new BLL_PhieuNhap();
@@ -33,16 +42,18 @@ namespace Pro_QuanLyBanHang2023.NhapHang
             {
                 //khong co phieu nhap nao chua hoan thanh
                 //tao phieu moi
-               txtMaPhieuNhap.Text= TaoPhieuMoi();
+                txtMaPhieuNhap.Text = TaoPhieuMoi();
                 txtNhanVienNhap.Text = ClsMain.maNhanVien;
                 //insert phieu nhap vao data.
-                if(bd.InsertPhieuNhap(ref err, txtMaPhieuNhap.Text, dtpNgayNhap.Value, txtNhanVienNhap.Text)==0)
+                if (bd.InsertPhieuNhap(ref err, txtMaPhieuNhap.Text, dtpNgayNhap.Value, txtNhanVienNhap.Text) == 0)
                 {
                     MessageBox.Show("Chua insert");
                 }
             }
         }
-        DataTable dtChiTietPhieuNhap;
+        #endregion
+
+        #region Các Phương thức trong Class Frm_NhapHang
         private void LoadThongTinTheoPhieuNhapCu(string maPhieuNhap)
         {
             dtChiTietPhieuNhap = new DataTable();
@@ -59,23 +70,30 @@ namespace Pro_QuanLyBanHang2023.NhapHang
                 txtMaPhieuNhap.Text = maPhieuNhap;
                 txtNhanVienNhap.Text = ClsMain.maNhanVien;
             }
+            foreach (DataRow item in dtChiTietPhieuNhap.Rows)
+            {
+                tongSoLuong = Convert.ToInt32(item["SoLuong"].ToString());
+                tongThanhTien = Convert.ToInt32(item["ThanhTien"].ToString());
+            }
+            txtTongSL.Text = string.Format("{0:#,###0}", tongSoLuong);
+            txtTongThanhTien.Text = string.Format("{0:#,###0}", tongThanhTien);
         }
+
         /// <summary>
-        /// 
+        /// Tạo mã phiếu nhập mới
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Mã phiếu được tạo</returns>
         private string TaoPhieuMoi()
         {
-            string maPhieuNhap = string.Empty;
-            maPhieuNhap = bd.SinhMaPhieuMoi(ref err);
+            string maPhieuNhap = bd.SinhMaPhieuMoi(ref err);
             return maPhieuNhap;
         }
 
-       /// <summary>
-       /// Kiểm tra phiếu nhập tồn tại theo User
-       /// </summary>
-       /// <param name="maNhanVien">Mã nhân viên đăng nhập vào CT</param>
-       /// <returns></returns>
+        /// <summary>
+        /// Kiểm tra phiếu nhập tồn tại theo User
+        /// </summary>
+        /// <param name="maNhanVien">Mã nhân viên đăng nhập vào CT</param>
+        /// <returns></returns>
         private bool KiemTraPhieuNhapTonTaiTheoUser(string maNhanVien)
         {
             bool result = false;
@@ -90,5 +108,7 @@ namespace Pro_QuanLyBanHang2023.NhapHang
             }
             return result;
         }
+        #endregion
+
     }
 }

@@ -26,6 +26,8 @@ namespace Pro_QuanLyBanHang2023
         private void Frm_DangNhap_Load(object sender, EventArgs e)
         {
             bd = new BLL_DangNhap();
+            txtTenDangNhap.Text = "admin";
+            txtMatKhau.Text = "123456";
         }
 
         private void btnDangNhap_Click(object sender, EventArgs e)
