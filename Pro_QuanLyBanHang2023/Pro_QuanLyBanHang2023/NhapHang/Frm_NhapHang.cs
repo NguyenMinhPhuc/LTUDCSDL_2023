@@ -60,7 +60,10 @@ namespace Pro_QuanLyBanHang2023.NhapHang
                 txtNhanVienNhap.Text = ClsMain.maNhanVien;
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         private string TaoPhieuMoi()
         {
             string maPhieuNhap = string.Empty;
