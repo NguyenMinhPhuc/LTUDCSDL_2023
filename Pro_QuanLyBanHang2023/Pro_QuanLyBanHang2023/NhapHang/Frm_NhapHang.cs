@@ -27,6 +27,7 @@ namespace Pro_QuanLyBanHang2023.NhapHang
 
         int tongSoLuong = 0;
         int tongThanhTien = 0;
+        bool phieuNhapHoanThanh = false;//Kiểm soát việc thay đổi Maphieu theo ngày.
         #endregion
 
         #region Các sự kiện trong form Frm_NhapHang
@@ -37,6 +38,7 @@ namespace Pro_QuanLyBanHang2023.NhapHang
             {
                 //Co phieu nhap chua hoan thanh
                 LoadThongTinTheoPhieuNhapCu(maPhieuNhap);
+                phieuNhapHoanThanh = false;
             }
             else
             {
@@ -49,7 +51,24 @@ namespace Pro_QuanLyBanHang2023.NhapHang
                 {
                     MessageBox.Show("Chua insert");
                 }
+                phieuNhapHoanThanh = true;
             }
+            LoadCboSanPham();
+        }
+        bool statusloadSanPham = false;
+        private void LoadCboSanPham()
+        {
+            DataTable dt = new DataTable();
+            dt = new BLL_SanPham().LaySanPhamCbo(ref err);
+
+            cboSanPham.DataSource = dt;
+
+            cboSanPham.DisplayMember = "TenSP";
+            cboSanPham.ValueMember = "MaSP";
+
+            cboSanPham.SelectedIndex = -1;
+            cboSanPham.Text = "--- chọn sản phẩm --- ";
+            statusloadSanPham = true;
         }
         #endregion
 
@@ -72,7 +91,7 @@ namespace Pro_QuanLyBanHang2023.NhapHang
             }
             foreach (DataRow item in dtChiTietPhieuNhap.Rows)
             {
-                tongSoLuong = Convert.ToInt32(item["SoLuong"].ToString());
+                tongSoLuong = Convert.ToInt32(item["SoLuongNhap"].ToString());
                 tongThanhTien = Convert.ToInt32(item["ThanhTien"].ToString());
             }
             txtTongSL.Text = string.Format("{0:#,###0}", tongSoLuong);
@@ -86,6 +105,12 @@ namespace Pro_QuanLyBanHang2023.NhapHang
         private string TaoPhieuMoi()
         {
             string maPhieuNhap = bd.SinhMaPhieuMoi(ref err);
+            return maPhieuNhap;
+        }
+
+        private string TaoPhieuMoi(DateTime ngayTaoPhieu)
+        {
+            string maPhieuNhap = bd.SinhMaPhieuMoi(ref err,ngayTaoPhieu);
             return maPhieuNhap;
         }
 
@@ -110,5 +135,112 @@ namespace Pro_QuanLyBanHang2023.NhapHang
         }
         #endregion
 
+        private void dtpNgayNhap_ValueChanged(object sender, EventArgs e)
+        {
+            if (phieuNhapHoanThanh == true)
+            {
+                txtMaPhieuNhap.Text = TaoPhieuMoi(dtpNgayNhap.Value);
+            }
+            
+        }
+
+        private void cboSanPham_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboSanPham.SelectedIndex >= 0 && statusloadSanPham==true)
+            {
+                DataTable dtSanPham = new BLL_SanPham().LayDanhSachSanPhamAllOrByID(ref err, cboSanPham.SelectedValue.ToString());
+
+                txtDonViTinh.Text = dtSanPham.Rows[0]["MaDVT"].ToString();
+            }
+                    
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            if(cboSanPham.SelectedIndex>-1)
+            {
+                if (!string.IsNullOrEmpty(txtSoLuongNhap.Text))
+                {
+                    if (!string.IsNullOrEmpty(txtDonViTinh.Text))
+                    {
+                        if(!string.IsNullOrEmpty(txtDonGiaNhap.Text))
+                        {
+                            //Them du lieu vao phieu nhap
+                            if(bd.ThemSanPhamVaoPhieuNhap(ref err, txtMaPhieuNhap.Text, cboSanPham.SelectedValue.ToString(), Convert.ToInt32(txtSoLuongNhap.Text), Convert.ToInt32(txtDonGiaNhap.Text))>=1){
+                                MessageBox.Show("Them thanh công");
+                                LoadThongTinTheoPhieuNhapCu(txtMaPhieuNhap.Text);
+                                phieuNhapHoanThanh = true;
+                            }
+                            else
+                            {
+                                MessageBox.Show(err);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Chua nhap gia");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Chua nhap don vi tinh");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Chua nhap so luong");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Chua chon san pham");
+            }
+        }
+
+        private void btnInPhieuNhap_Click(object sender, EventArgs e)
+        {
+            if(bd.XacNhanPhieuNhapHoanThanh(ref err, txtMaPhieuNhap.Text)>=1)
+            {
+                MessageBox.Show("phieu nhap hoan thanh");
+                this.Close();
+            }
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if(bd.XoaChiTietPhieuNhap(ref err, maPhieuNhapXoa, maSP) >= 1)
+            {
+                LoadThongTinTheoPhieuNhapCu(txtMaPhieuNhap.Text);
+            }
+        }
+        string maPhieuNhapXoa = string.Empty;
+        string maSP = string.Empty;
+        private void dgvDanhSachSanPhamNhap_Click(object sender, EventArgs e)
+        {
+            if(dgvDanhSachSanPhamNhap.Rows.Count>0)
+            {
+                maPhieuNhapXoa = dgvDanhSachSanPhamNhap.CurrentRow.Cells["colMaPhieuNhap"].Value.ToString();
+                maSP= dgvDanhSachSanPhamNhap.CurrentRow.Cells["colMaSP"].Value.ToString();
+            }
+        }
+
+        private void btnXoaTatCa_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnThemSanPhamMoi_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripSplitButton1_ButtonClick(object sender, EventArgs e)
+        {
+            for (int i = dgvDanhSachSanPhamNhap.Rows.Count - 1; i >= 0; i++)
+            {
+                bd.XoaChiTietPhieuNhap(ref err, dgvDanhSachSanPhamNhap.Rows[i].Cells["colMaPhieuNhap"].Value.ToString(), dgvDanhSachSanPhamNhap.Rows[i].Cells["colMaSP"].Value.ToString());
+            }
+            LoadThongTinTheoPhieuNhapCu(txtMaPhieuNhap.Text);
+        }
     }
 }

@@ -12,6 +12,6 @@ namespace Pro_QuanLyBanHang2023
   public  class ClsMain
     {
         //Lưu mã nhân viên của nhân viên đăng nhập vào chương trình.
-        public static string maNhanVien= "NV0000002";
+        public static string maNhanVien= string.Empty;
     }
 }
