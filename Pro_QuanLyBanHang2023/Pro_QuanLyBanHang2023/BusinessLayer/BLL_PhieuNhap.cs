@@ -69,5 +69,11 @@ namespace Pro_QuanLyBanHang2023.BusinessLayer
                 new SqlParameter("@MaPhieuNhap", maPhieuNhapXoa),
                 new SqlParameter("@MaSP", maSP));
         }
+
+        public DataTable LayThongTinInPhieuNhap(ref string err, string maPhieuNhap)
+        {
+            return data.GetDataTable(ref err, "PSP_PhieuNhap_InPhieuNhaphang", CommandType.StoredProcedure,
+                new SqlParameter("@MaPhieuNhap", maPhieuNhap));
+        }
     }
 }
