@@ -1,4 +1,5 @@
 ﻿using Pro_QuanLyBanHang2023.BusinessLayer;
+using Pro_QuanLyBanHang2023.Reports;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -201,7 +202,9 @@ namespace Pro_QuanLyBanHang2023.NhapHang
         {
             if(bd.XacNhanPhieuNhapHoanThanh(ref err, txtMaPhieuNhap.Text)>=1)
             {
-                MessageBox.Show("phieu nhap hoan thanh");
+                Frm_HienThiReport frm_HienThiReport = new Frm_HienThiReport();
+                frm_HienThiReport.maPhieuNhap = txtMaPhieuNhap.Text;
+                frm_HienThiReport.ShowDialog();
                 this.Close();
             }
         }
